@@ -8,12 +8,13 @@
 import UIKit
 
 class ViewController: UIViewController, UIScrollViewDelegate {
-
+    
+    let mainControllerID = "mainControllerID"
+    
     let scrollView = UIScrollView()
     let mainImageView = UIImageView()
     var pageControl = UIPageControl()
-    
-    var frame: CGRect = CGRect(x: 0, y: 0, width: 0, height: 0)
+
     var colors:[UIColor] = [UIColor.red, UIColor.blue, UIColor.green, UIColor.yellow]
 
     override func viewDidLoad() {
@@ -52,14 +53,50 @@ extension ViewController {
     func addInformation() {
         for index in 0...3 {
             let informationView = UIView(frame: CGRect(x: self.scrollView.frame.size.width * CGFloat(index), y: 248, width: self.scrollView.frame.size.width, height: 920))
-
+            let rocketNameTextField = UITextField(frame: CGRect(x: 32, y: 48, width: 146, height: 32))
+            let settingsButtonImage = UIImageView(frame: CGRect(x: 311, y: 48, width: 32, height: 32))
+            let settingButton = UIButton(frame: settingsButtonImage.frame)
+            let informationCollectionView = UICollectionView(frame: CGRect(x: 32, y: 112, width: informationView.frame.size.width - 32, height: 96), collectionViewLayout: UICollectionViewLayout())
 
             informationView.backgroundColor = colors[index]
             informationView.layer.cornerRadius = 32
+            
+            rocketNameTextField.backgroundColor = .black
+            
+            settingsButtonImage.image = UIImage(named: "settingIcon")
+            settingButton.addTarget(self, action: #selector(self.setting), for: .touchUpInside)
+            
+            //informationCollectionView.backgroundColor = .black
+            informationCollectionView.dataSource = self
+            informationCollectionView.delegate = self
+            informationCollectionView.register(UINib(nibName: "InformationCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: mainControllerID)
+            
+            informationView.addSubview(rocketNameTextField)
+            informationView.addSubview(settingsButtonImage)
+            informationView.addSubview(settingButton)
+            informationView.addSubview(informationCollectionView)
 
             self.scrollView.addSubview(informationView)
         }
     }
+}
+
+extension ViewController: UICollectionViewDelegate {
+    
+}
+
+extension ViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: mainControllerID, for: indexPath) as? InformationCollectionViewCell else {return UICollectionViewCell()}
+        
+        cell.configure(value: 25, nameValue: "WIDTH")
+        return cell
+    }
+    
 }
 
 extension ViewController {
@@ -76,6 +113,10 @@ extension ViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    @objc func setting() {
+        self.navigationController?.pushViewController(SettingsViewController.init(), animated: true)
     }
 }
 
