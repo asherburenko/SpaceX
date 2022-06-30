@@ -7,18 +7,21 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-    
+class ViewController: UIViewController, UIScrollViewDelegate {
+
     let scrollView = UIScrollView()
     let mainImageView = UIImageView()
-    let informationView = UIView()
     var pageControl = UIPageControl()
+    
+    var frame: CGRect = CGRect(x: 0, y: 0, width: 0, height: 0)
+    var colors:[UIColor] = [UIColor.red, UIColor.blue, UIColor.green, UIColor.yellow]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.delegate = self
         configure()
         addConstraint()
+        addInformation()
     }
 
 
@@ -26,63 +29,72 @@ class ViewController: UIViewController {
 
 extension ViewController {
     func configure() {
-        self.view.backgroundColor = .blue
+        self.view.backgroundColor = .tintColor
         
-        scrollView.contentSize = CGSize(width: 375, height: 1168)
-        
-        mainImageView.backgroundColor = .gray
-        
-        informationView.backgroundColor = UIColor(rgb: 0x000000)
-        informationView.layer.cornerRadius = 32
-        
+        scrollView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.size.height)
+        scrollView.contentSize = CGSize(width: scrollView.frame.size.width*4, height: 1168)
+        scrollView.isPagingEnabled = true
+
         pageControl.backgroundColor = UIColor(rgb: 0x121212)
         pageControl.numberOfPages = 4
         pageControl.currentPage = 0
+        pageControl.addTarget(self, action: #selector(self.changePage(sender:)), for: UIControl.Event.valueChanged)
         
+        mainImageView.backgroundColor = .gray
+
+        self.view.addSubview(mainImageView)
         self.view.addSubview(scrollView)
         self.view.addSubview(pageControl)
-        self.scrollView.addSubview(mainImageView)
-        self.scrollView.addSubview(informationView)
     }
 }
 
-extension ViewController: UIScrollViewDelegate {
+extension ViewController {
+    func addInformation() {
+        for index in 0...3 {
+            let informationView = UIView(frame: CGRect(x: self.scrollView.frame.size.width * CGFloat(index), y: 248, width: self.scrollView.frame.size.width, height: 920))
+
+
+            informationView.backgroundColor = colors[index]
+            informationView.layer.cornerRadius = 32
+
+            self.scrollView.addSubview(informationView)
+        }
+    }
+}
+
+extension ViewController {
+    @objc func changePage(sender: AnyObject) -> () {
+        let x = CGFloat(pageControl.currentPage) * scrollView.frame.size.width
+        scrollView.setContentOffset(CGPoint(x: x,y :0), animated: true)
+    }
+
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+
         let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
         pageControl.currentPage = Int(pageNumber)
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
 }
 
 extension ViewController {
     func addConstraint() {
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
         pageControl.translatesAutoresizingMaskIntoConstraints = false
-        informationView.translatesAutoresizingMaskIntoConstraints = false
         mainImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        let scrollViewLeadingConstr = NSLayoutConstraint(item: scrollView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0)
-        let scrollViewTrailingConstr = NSLayoutConstraint(item: scrollView, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0)
-        let scrollViewTopConstr = NSLayoutConstraint(item: scrollView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 0)
-        let scrollViewBottomConstr = NSLayoutConstraint(item: scrollView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
-        
+
         let pageControlHeightConstr = NSLayoutConstraint(item: pageControl, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 0, constant: 72)
         let pageControlLeadingConstr = NSLayoutConstraint(item: pageControl, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0)
         let pageControlTrailingConstr = NSLayoutConstraint(item: pageControl, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0)
         let pageControlBottomConstr = NSLayoutConstraint(item: pageControl, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
-        
-        let informationViewHeightConstr = NSLayoutConstraint(item: informationView, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 0, constant: 920)
-        let informationViewLeadingConstr = NSLayoutConstraint(item: informationView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0)
-        let informationViewTrailingConstr = NSLayoutConstraint(item: informationView, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0)
-        let informationViewTopConstr = NSLayoutConstraint(item: informationView, attribute: .top, relatedBy: .equal, toItem: mainImageView, attribute: .top, multiplier: 1, constant: 388)
-        
+
         let mainImageViewHeightConstr = NSLayoutConstraint(item: mainImageView, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 0, constant: 627)
         let mainImageViewWidthConstr = NSLayoutConstraint(item: mainImageView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 0, constant: 570)
         let mainImageViewLeadingConstr = NSLayoutConstraint(item: mainImageView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: -98)
         let mainImageViewTrailingConstr = NSLayoutConstraint(item: mainImageView, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -140)
-        
-        self.view.addConstraints([scrollViewTopConstr, scrollViewBottomConstr,  scrollViewLeadingConstr, scrollViewTrailingConstr])
+
         self.view.addConstraints([pageControlHeightConstr, pageControlLeadingConstr, pageControlTrailingConstr, pageControlBottomConstr])
-        self.view.addConstraints([informationViewHeightConstr, informationViewLeadingConstr, informationViewTrailingConstr, informationViewTopConstr, informationViewTopConstr])
         self.view.addConstraints([mainImageViewWidthConstr, mainImageViewHeightConstr, mainImageViewLeadingConstr, mainImageViewTrailingConstr])
     }
 }
