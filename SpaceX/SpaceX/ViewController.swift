@@ -56,7 +56,16 @@ extension ViewController {
             let rocketNameTextField = UITextField(frame: CGRect(x: 32, y: 48, width: 146, height: 32))
             let settingsButtonImage = UIImageView(frame: CGRect(x: 311, y: 48, width: 32, height: 32))
             let settingButton = UIButton(frame: settingsButtonImage.frame)
-            let informationCollectionView = UICollectionView(frame: CGRect(x: 32, y: 112, width: informationView.frame.size.width - 32, height: 96), collectionViewLayout: UICollectionViewLayout())
+            let informationCollectionView: UICollectionView = {
+                let layout = UICollectionViewFlowLayout()
+                let collectionView = UICollectionView(frame: CGRect(x: 32, y: 112, width: informationView.frame.size.width - 32, height: 96), collectionViewLayout: layout)
+                layout.scrollDirection = .horizontal
+                collectionView.register(UINib(nibName: "InfCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: mainControllerID)
+                collectionView.delegate = self
+                collectionView.dataSource = self
+                collectionView.backgroundColor = .black
+                return collectionView
+            }()
 
             informationView.backgroundColor = colors[index]
             informationView.layer.cornerRadius = 32
@@ -65,11 +74,6 @@ extension ViewController {
             
             settingsButtonImage.image = UIImage(named: "settingIcon")
             settingButton.addTarget(self, action: #selector(self.setting), for: .touchUpInside)
-            
-            //informationCollectionView.backgroundColor = .black
-            informationCollectionView.dataSource = self
-            informationCollectionView.delegate = self
-            informationCollectionView.register(UINib(nibName: "InformationCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: mainControllerID)
             
             informationView.addSubview(rocketNameTextField)
             informationView.addSubview(settingsButtonImage)
@@ -82,21 +86,27 @@ extension ViewController {
 }
 
 extension ViewController: UICollectionViewDelegate {
-    
+
 }
 
 extension ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return 4
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: mainControllerID, for: indexPath) as? InformationCollectionViewCell else {return UICollectionViewCell()}
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: mainControllerID, for: indexPath) as? InfCollectionViewCell else {return UICollectionViewCell()}
+        cell.configure(value: 23, nameValue: "Width")
         
-        cell.configure(value: 25, nameValue: "WIDTH")
         return cell
     }
     
+}
+
+extension ViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 96, height: 96)
+    }
 }
 
 extension ViewController {
