@@ -16,7 +16,6 @@ class InfCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setupCell()
-        // Initialization code
     }
     
     func configure(value: Int, nameValue: String) {
@@ -26,9 +25,15 @@ class InfCollectionViewCell: UICollectionViewCell {
     
     func setupCell() {
         view.layer.cornerRadius = 32
-        view.backgroundColor = .darkGray
-        valueLabel.textColor = .white
-        nameValueLabel.textColor = .white
+        view.backgroundColor = UIColor(rgb: 0x212121)
+        
+        valueLabel.textColor = UIColor(rgb: 0xFFFFFF)
+        valueLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 16)
+        valueLabel.textAlignment = .center
+        
+        nameValueLabel.textColor = UIColor(rgb: 0x8E8E8F)
+        nameValueLabel.font = UIFont(name: "HelveticaNeue", size: 14)
+        nameValueLabel.textAlignment = .center
     }
 
 }
