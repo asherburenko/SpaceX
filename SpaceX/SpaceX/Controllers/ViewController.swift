@@ -186,7 +186,7 @@ extension ViewController {
     }
     
     @objc func setting() {
-        self.navigationController?.pushViewController(SettingsViewController.init(), animated: true)
+        self.present(SettingsViewController.init(), animated: true, completion: nil)
     }
     
     @objc func Launch() {
