@@ -45,9 +45,12 @@ class SettingsViewController: UIViewController {
         addConstraint()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        returnOnController()
+    }
+    
     func addConstraint() {
         titleView.translatesAutoresizingMaskIntoConstraints = false
-        heightView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
                 titleView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -61,6 +64,7 @@ class SettingsViewController: UIViewController {
         view.backgroundColor = UIColor(rgb: 0x121212)
         
         titleView.headerButton.addTarget(self, action: #selector(returnOnController), for: .touchUpInside)
+        
         view.addSubview(titleView)
         view.addSubview(heightView)
         view.addSubview(diametrView)
@@ -69,7 +73,9 @@ class SettingsViewController: UIViewController {
     }
     
     @objc func returnOnController() {
-        self.dismiss(animated: true)
+        let setting = SettingsValue(heightSetting: heightView.valueSecmentedControl.selectedSegmentIndex, diametrSetting: diametrView.valueSecmentedControl.selectedSegmentIndex, massSetting: massView.valueSecmentedControl.selectedSegmentIndex, payLoadSetting: payloadView.valueSecmentedControl.selectedSegmentIndex)
+        NotificationCenter.default.post(name: applyValueSettings, object: setting)
         
+        self.dismiss(animated: true)
     }
 }
