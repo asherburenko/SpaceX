@@ -10,6 +10,7 @@ import UIKit
 class ViewController: UIViewController, UIScrollViewDelegate {
     
     static let mainControllerID = "mainControllerID"
+    var settingsValues = SettingsValue(heightSetting: 0, diametrSetting: 0, massSetting: 0, payLoadSetting: 0)
     
     let scrollView = UIScrollView()
     let mainImageView = UIImageView()
@@ -21,6 +22,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         configure()
         addConstraint()
         addInformation()
+        notifications()
     }
 }
 
@@ -186,7 +188,7 @@ extension ViewController {
     }
     
     @objc func setting() {
-        self.navigationController?.pushViewController(SettingsViewController.init(), animated: true)
+        self.present(SettingsViewController.init(), animated: true, completion: nil)
     }
     
     @objc func Launch() {
@@ -198,19 +200,27 @@ extension ViewController {
     func addConstraint() {
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         mainImageView.translatesAutoresizingMaskIntoConstraints = false
-
-        let pageControlHeightConstr = NSLayoutConstraint(item: pageControl, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 0, constant: 72)
-        let pageControlLeadingConstr = NSLayoutConstraint(item: pageControl, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0)
-        let pageControlTrailingConstr = NSLayoutConstraint(item: pageControl, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0)
-        let pageControlBottomConstr = NSLayoutConstraint(item: pageControl, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
-
-        let mainImageViewHeightConstr = NSLayoutConstraint(item: mainImageView, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 0, constant: 627)
-        let mainImageViewWidthConstr = NSLayoutConstraint(item: mainImageView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 0, constant: 570)
-        let mainImageViewLeadingConstr = NSLayoutConstraint(item: mainImageView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: -98)
-        let mainImageViewTrailingConstr = NSLayoutConstraint(item: mainImageView, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -140)
-
-        self.view.addConstraints([pageControlHeightConstr, pageControlLeadingConstr, pageControlTrailingConstr, pageControlBottomConstr])
-        self.view.addConstraints([mainImageViewWidthConstr, mainImageViewHeightConstr, mainImageViewLeadingConstr, mainImageViewTrailingConstr])
+        
+        NSLayoutConstraint.activate([
+            pageControl.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0, constant: 72),
+            pageControl.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            pageControl.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            mainImageView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: 627),
+            mainImageView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 570),
+            mainImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -98),
+            mainImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -140)
+            ])
+    }
+    
+    func notifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(valueSetting(_:)), name: applyValueSettings, object: nil)
+    }
+    
+    @objc func valueSetting(_ notification: Notification) {
+        guard let setting = notification.object as? SettingsValue else { return }
+        settingsValues = setting
+        print(settingsValues)
     }
 }
 
