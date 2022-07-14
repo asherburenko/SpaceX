@@ -6,40 +6,49 @@
 //
 
 import UIKit
+import Alamofire
+import Kingfisher
+import Accelerate
 
 class ViewController: UIViewController, UIScrollViewDelegate {
     
     static let mainControllerID = "mainControllerID"
     var settingsValues = SettingsValue(heightSetting: 0, diametrSetting: 0, massSetting: 0, payLoadSetting: 0)
+    let service = NetworkingService()
+    static var informationArray = [SpaceRocketsModel]()
+    var infArray = [SpaceRockets]()
     
+    private var urlConstructor = URLComponents()
     let scrollView = UIScrollView()
     let mainImageView = UIImageView()
     var pageControl = UIPageControl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        getDstaSpaceRockets()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         scrollView.delegate = self
         configure()
         addConstraint()
-        addInformation()
         notifications()
     }
 }
 
 extension ViewController {
     func configure() {
-        self.view.backgroundColor = .tintColor
+        self.view.backgroundColor = UIColor(rgb: 0x000000)
         
         scrollView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.size.height)
-        scrollView.contentSize = CGSize(width: scrollView.frame.size.width*4, height: 1168)
+        scrollView.contentSize = CGSize(width: scrollView.frame.size.width*4, height: view.frame.size.height+356)
         scrollView.isPagingEnabled = true
 
         pageControl.backgroundColor = UIColor(rgb: 0x121212)
         pageControl.numberOfPages = 4
         pageControl.currentPage = 0
         pageControl.addTarget(self, action: #selector(self.changePage(sender:)), for: UIControl.Event.valueChanged)
-        
-        mainImageView.backgroundColor = .gray
 
         self.view.addSubview(mainImageView)
         self.view.addSubview(scrollView)
@@ -48,8 +57,31 @@ extension ViewController {
 }
 
 extension ViewController {
+    func getDstaSpaceRockets() {
+        urlConstructor.scheme = "https"
+        urlConstructor.host = "api.spacexdata.com"
+        urlConstructor.path = "/v4/rockets"
+        guard let url = urlConstructor.url else { return }
+        
+        AF.request(url).responseData { response in
+            guard let data = response.value else { return }
+            
+            do {
+                let spaceRoketsData = try JSONDecoder().decode([SpaceRockets].self, from: data)
+                self.infArray.insert(contentsOf: spaceRoketsData, at: 0)
+                self.addInformation()
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
     func addInformation() {
-        for index in 0...3 {
+        for index in 0...(infArray.count - 1) {
+            let image = infArray[Int.random(in: 0...3)].flickrImages.randomElement()
+            let url = URL(string: image!)
+            mainImageView.kf.setImage(with: url)
+            
             let informationView: UIView = {
                 let view = UIView(frame: CGRect(x: self.scrollView.frame.size.width * CGFloat(index), y: 248, width: self.scrollView.frame.size.width, height: 920))
                 view.backgroundColor = UIColor(rgb: 0x000000)
@@ -61,7 +93,7 @@ extension ViewController {
                 label.textColor = UIColor(rgb: 0xF6F6F6)
                 label.font = UIFont(name: "HelveticaNeue-Medium", size: 23)
                 label.textAlignment = .center
-                label.text = "Falcon Heavy"
+                label.text = infArray[index].name
                 return label
             }()
             let settingsButtonImage: UIImageView = {
@@ -219,10 +251,10 @@ extension ViewController {
             pageControl.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             pageControl.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            mainImageView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: 627),
-            mainImageView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 570),
-            mainImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -98),
-            mainImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -140)
+            mainImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0, constant: 500),
+            mainImageView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            mainImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mainImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
             ])
     }
     
