@@ -26,19 +26,17 @@ extension LaunchViewController: UITableViewDelegate {
         return 100
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footerView: UIView = {
-            let view = UIView(frame: CGRect(x: 0, y: 0, width: launchTableView.frame.size.width, height: 16))
-            view.backgroundColor = .white
-            return view
-        }()
-        return footerView
-    }
+    
 }
 
 extension LaunchViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 3
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -46,6 +44,16 @@ extension LaunchViewController: UITableViewDataSource {
         
         cell.configure(name: "Heavy holidays", date: "6 января, 2022")
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 16
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footerView = UIView()
+        footerView.backgroundColor = .clear
+        return footerView
     }
 }
 

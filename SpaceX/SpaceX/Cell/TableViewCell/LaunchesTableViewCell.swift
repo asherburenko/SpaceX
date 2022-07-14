@@ -34,7 +34,7 @@ class LaunchesTableViewCell: UITableViewCell {
     func setupCell() {
         self.backgroundColor = UIColor(rgb: 0x121212)
         titleView.backgroundColor = UIColor(rgb: 0x212121)
-        titleView.layer.cornerRadius = 12
+        titleView.layer.cornerRadius = 24
         
         nameLabel.textColor = UIColor(rgb: 0xFFFFFF)
         nameLabel.font = UIFont(name: "HelveticaNeue", size: 20)
