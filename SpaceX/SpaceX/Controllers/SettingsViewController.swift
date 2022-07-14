@@ -53,11 +53,11 @@ class SettingsViewController: UIViewController {
         titleView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-                titleView.topAnchor.constraint(equalTo: view.topAnchor),
-                titleView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                titleView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                titleView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            ])
+            titleView.topAnchor.constraint(equalTo: view.topAnchor),
+            titleView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            titleView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            titleView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
     }
     
     func setup() {

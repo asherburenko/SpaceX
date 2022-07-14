@@ -192,6 +192,19 @@ extension ViewController {
     }
     
     @objc func Launch() {
+        let backButton: UIBarButtonItem = {
+            let button = UIBarButtonItem(
+                  title: "Назад",
+                  style: UIBarButtonItem.Style.plain,
+                  target: nil,
+                  action: nil
+            )
+            button.tintColor = UIColor(rgb: 0xF6F6F6)
+            return button
+        }()
+        
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton;
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor(rgb: 0xF6F6F6)]
         self.navigationController?.pushViewController(LaunchViewController.init(), animated: true)
     }
 }

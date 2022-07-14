@@ -20,29 +20,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="5SQ-2L-tPU"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <segue destination="sWR-LN-1Ky" kind="modal" identifier="settingsSegueID" modalPresentationStyle="pageSheet" id="F1M-Rg-fU2"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2286.9565217391305" y="97.767857142857139"/>
-        </scene>
-        <!--Settings View Controller-->
-        <scene sceneID="TqX-2j-haP">
-            <objects>
-                <viewController id="sWR-LN-1Ky" customClass="SettingsViewController" customModule="SpaceX" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="5MP-rh-cUM">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="F7j-Xn-DEv"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="IGZ-6e-liI"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sIP-eL-rOL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3086.9565217391305" y="97.767857142857139"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="AM7-CO-xZh">
