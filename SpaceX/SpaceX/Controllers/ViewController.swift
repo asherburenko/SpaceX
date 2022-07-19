@@ -20,9 +20,9 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     var dateForm = ""
     
     private var urlConstructor = URLComponents()
+    var pageControl = UIPageControl()
     let scrollView = UIScrollView()
     let mainImageView = UIImageView()
-    var pageControl = UIPageControl()
     let collectionView1: UICollectionView = {
         Metod().createCollectionView()
     }()
