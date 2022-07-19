@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		48398783288060ED00E5B2C5 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 48398782288060ED00E5B2C5 /* Kingfisher */; };
 		48932A29286EB9E900E4E40C /* InfCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48932A27286EB9E900E4E40C /* InfCollectionViewCell.swift */; };
 		48932A2A286EB9E900E4E40C /* InfCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48932A28286EB9E900E4E40C /* InfCollectionViewCell.xib */; };
 		48932A2F28747B7700E4E40C /* InfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48932A2E28747B7600E4E40C /* InfView.swift */; };
@@ -18,6 +19,9 @@
 		48932A4D287E983100E4E40C /* SettingsValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48932A4C287E983100E4E40C /* SettingsValue.swift */; };
 		48932A50287ED17600E4E40C /* LaunchesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48932A4E287ED17600E4E40C /* LaunchesTableViewCell.swift */; };
 		48932A51287ED17600E4E40C /* LaunchesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48932A4F287ED17600E4E40C /* LaunchesTableViewCell.xib */; };
+		48932A562880100700E4E40C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 48932A552880100700E4E40C /* Alamofire */; };
+		48932A582880154B00E4E40C /* SpaceRocketsJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48932A572880154B00E4E40C /* SpaceRocketsJSON.swift */; };
+		48932A5A28802FC700E4E40C /* SpaceRocketsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48932A5928802FC700E4E40C /* SpaceRocketsModel.swift */; };
 		48A3228C286C1BF4006E5C2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A3228B286C1BF4006E5C2D /* AppDelegate.swift */; };
 		48A3228E286C1BF4006E5C2D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A3228D286C1BF4006E5C2D /* SceneDelegate.swift */; };
 		48A32290286C1BF4006E5C2D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A3228F286C1BF4006E5C2D /* ViewController.swift */; };
@@ -25,6 +29,9 @@
 		48A32295286C1BF6006E5C2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48A32294286C1BF6006E5C2D /* Assets.xcassets */; };
 		48A32298286C1BF6006E5C2D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48A32296286C1BF6006E5C2D /* LaunchScreen.storyboard */; };
 		48A322A0286DA912006E5C2D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A3229F286DA912006E5C2D /* SettingsViewController.swift */; };
+		48AFC7222885531D00146863 /* LaunchJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48AFC7212885531D00146863 /* LaunchJSON.swift */; };
+		48E2E79B2881299400A27597 /* Metod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E2E79A2881299400A27597 /* Metod.swift */; };
+		48E2E79D28812EE500A27597 /* CollectionViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E2E79C28812EE500A27597 /* CollectionViewData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +46,8 @@
 		48932A4C287E983100E4E40C /* SettingsValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsValue.swift; sourceTree = "<group>"; };
 		48932A4E287ED17600E4E40C /* LaunchesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchesTableViewCell.swift; sourceTree = "<group>"; };
 		48932A4F287ED17600E4E40C /* LaunchesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchesTableViewCell.xib; sourceTree = "<group>"; };
+		48932A572880154B00E4E40C /* SpaceRocketsJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceRocketsJSON.swift; sourceTree = "<group>"; };
+		48932A5928802FC700E4E40C /* SpaceRocketsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceRocketsModel.swift; sourceTree = "<group>"; };
 		48A32288286C1BF4006E5C2D /* SpaceX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48A3228B286C1BF4006E5C2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		48A3228D286C1BF4006E5C2D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,6 +57,9 @@
 		48A32297286C1BF6006E5C2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		48A32299286C1BF6006E5C2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		48A3229F286DA912006E5C2D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		48AFC7212885531D00146863 /* LaunchJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchJSON.swift; sourceTree = "<group>"; };
+		48E2E79A2881299400A27597 /* Metod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metod.swift; sourceTree = "<group>"; };
+		48E2E79C28812EE500A27597 /* CollectionViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +67,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48398783288060ED00E5B2C5 /* Kingfisher in Frameworks */,
+				48932A562880100700E4E40C /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +106,7 @@
 		48932A37287494B600E4E40C /* Metod */ = {
 			isa = PBXGroup;
 			children = (
+				48E2E79A2881299400A27597 /* Metod.swift */,
 			);
 			path = Metod;
 			sourceTree = "<group>";
@@ -119,6 +134,10 @@
 			children = (
 				48932A49287E95F200E4E40C /* Constant.swift */,
 				48932A4C287E983100E4E40C /* SettingsValue.swift */,
+				48E2E79C28812EE500A27597 /* CollectionViewData.swift */,
+				48932A5928802FC700E4E40C /* SpaceRocketsModel.swift */,
+				48932A572880154B00E4E40C /* SpaceRocketsJSON.swift */,
+				48AFC7212885531D00146863 /* LaunchJSON.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -183,6 +202,10 @@
 			dependencies = (
 			);
 			name = SpaceX;
+			packageProductDependencies = (
+				48932A552880100700E4E40C /* Alamofire */,
+				48398782288060ED00E5B2C5 /* Kingfisher */,
+			);
 			productName = SpaceX;
 			productReference = 48A32288286C1BF4006E5C2D /* SpaceX.app */;
 			productType = "com.apple.product-type.application";
@@ -211,6 +234,10 @@
 				Base,
 			);
 			mainGroup = 48A3227F286C1BF4006E5C2D;
+			packageReferences = (
+				48932A542880100600E4E40C /* XCRemoteSwiftPackageReference "Alamofire" */,
+				48398781288060ED00E5B2C5 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = 48A32289286C1BF4006E5C2D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -247,11 +274,16 @@
 				48A3228C286C1BF4006E5C2D /* AppDelegate.swift in Sources */,
 				48A3228E286C1BF4006E5C2D /* SceneDelegate.swift in Sources */,
 				48A322A0286DA912006E5C2D /* SettingsViewController.swift in Sources */,
+				48E2E79D28812EE500A27597 /* CollectionViewData.swift in Sources */,
 				48932A4D287E983100E4E40C /* SettingsValue.swift in Sources */,
 				48932A312874874B00E4E40C /* StageView.swift in Sources */,
+				48932A5A28802FC700E4E40C /* SpaceRocketsModel.swift in Sources */,
+				48932A582880154B00E4E40C /* SpaceRocketsJSON.swift in Sources */,
+				48E2E79B2881299400A27597 /* Metod.swift in Sources */,
 				48932A342874909E00E4E40C /* LaunchViewController.swift in Sources */,
 				48932A44287DB35100E4E40C /* SettingView.swift in Sources */,
 				48932A48287DBA9D00E4E40C /* SegmentControlView.swift in Sources */,
+				48AFC7222885531D00146863 /* LaunchJSON.swift in Sources */,
 				48932A4A287E95F200E4E40C /* Constant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -472,6 +504,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		48398781288060ED00E5B2C5 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+		48932A542880100600E4E40C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		48398782288060ED00E5B2C5 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 48398781288060ED00E5B2C5 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		48932A552880100700E4E40C /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 48932A542880100600E4E40C /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 48A32280286C1BF4006E5C2D /* Project object */;
 }

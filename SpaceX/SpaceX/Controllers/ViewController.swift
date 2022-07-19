@@ -6,40 +6,70 @@
 //
 
 import UIKit
+import Alamofire
+import Kingfisher
+import Accelerate
 
 class ViewController: UIViewController, UIScrollViewDelegate {
     
     static let mainControllerID = "mainControllerID"
     var settingsValues = SettingsValue(heightSetting: 0, diametrSetting: 0, massSetting: 0, payLoadSetting: 0)
+    var collectionViewData = CollectionViewData(height: 0.0, diametr: 0.0, mass: 0.0, payLoadpayloadWeights: 0.0, heightDescription: "", diametrDescription: "", massDescription: "", payLoadpayloadWeightsDescription: "")
+    var collViewData = [CollectionViewData]()
+    var informationArray = [SpaceRockets]()
+    var dateForm = ""
     
+    private var urlConstructor = URLComponents()
     let scrollView = UIScrollView()
     let mainImageView = UIImageView()
     var pageControl = UIPageControl()
+    let collectionView1: UICollectionView = {
+        Metod().createCollectionView()
+    }()
+    let collectionView2: UICollectionView = {
+        Metod().createCollectionView()
+    }()
+    let collectionView3: UICollectionView = {
+        Metod().createCollectionView()
+    }()
+    let collectionView4: UICollectionView = {
+        Metod().createCollectionView()
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView1.delegate = self
+        collectionView1.dataSource = self
+        collectionView2.delegate = self
+        collectionView2.dataSource = self
+        collectionView3.delegate = self
+        collectionView3.dataSource = self
+        collectionView4.delegate = self
+        collectionView4.dataSource = self
+        getDstaSpaceRockets()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         scrollView.delegate = self
         configure()
         addConstraint()
-        addInformation()
         notifications()
     }
 }
 
 extension ViewController {
     func configure() {
-        self.view.backgroundColor = .tintColor
+        self.view.backgroundColor = UIColor(rgb: 0x000000)
         
         scrollView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.size.height)
-        scrollView.contentSize = CGSize(width: scrollView.frame.size.width*4, height: 1168)
+        scrollView.contentSize = CGSize(width: scrollView.frame.size.width*4, height: view.frame.size.height+356)
         scrollView.isPagingEnabled = true
 
         pageControl.backgroundColor = UIColor(rgb: 0x121212)
         pageControl.numberOfPages = 4
         pageControl.currentPage = 0
         pageControl.addTarget(self, action: #selector(self.changePage(sender:)), for: UIControl.Event.valueChanged)
-        
-        mainImageView.backgroundColor = .gray
 
         self.view.addSubview(mainImageView)
         self.view.addSubview(scrollView)
@@ -48,8 +78,45 @@ extension ViewController {
 }
 
 extension ViewController {
+    func getDate(dateIn: String) {
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "yyyy-MM-dd"
+        let dateFormatterPrint = DateFormatter()
+        dateFormatterPrint.dateFormat = "d MMMM,yyyy"
+
+        if let date = dateFormatterGet.date(from: dateIn) {
+             dateForm = dateFormatterPrint.string(from: date)
+        } else {
+           print("There was an error decoding the string")
+        }
+    }
+    
+    func getDstaSpaceRockets() {
+        urlConstructor.scheme = "https"
+        urlConstructor.host = "api.spacexdata.com"
+        urlConstructor.path = "/v4/rockets"
+        guard let url = urlConstructor.url else { return }
+        
+        AF.request(url).responseData { response in
+            guard let data = response.value else { return }
+            
+            do {
+                let spaceRoketsData = try JSONDecoder().decode([SpaceRockets].self, from: data)
+                self.informationArray.insert(contentsOf: spaceRoketsData, at: 0)
+                self.addInformation()
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
     func addInformation() {
-        for index in 0...3 {
+        for index in 0...(informationArray.count - 1) {
+            getDate(dateIn: informationArray[index].firstFlight)
+            updateImage()
+            collectionViewData = CollectionViewData(height: informationArray[index].height.meters, diametr: informationArray[index].diameter.meters, mass: informationArray[index].mass.kg, payLoadpayloadWeights: informationArray[index].payloadWeightsLeoKg?.first ?? 0.0, heightDescription: "Высота, m", diametrDescription: "Диаметр, m", massDescription: "Масса, kg", payLoadpayloadWeightsDescription: "Нагр. kg")
+            collViewData.insert(collectionViewData, at: index)
+            
             let informationView: UIView = {
                 let view = UIView(frame: CGRect(x: self.scrollView.frame.size.width * CGFloat(index), y: 248, width: self.scrollView.frame.size.width, height: 920))
                 view.backgroundColor = UIColor(rgb: 0x000000)
@@ -61,7 +128,7 @@ extension ViewController {
                 label.textColor = UIColor(rgb: 0xF6F6F6)
                 label.font = UIFont(name: "HelveticaNeue-Medium", size: 23)
                 label.textAlignment = .center
-                label.text = "Falcon Heavy"
+                label.text = informationArray[index].name
                 return label
             }()
             let settingsButtonImage: UIImageView = {
@@ -74,35 +141,25 @@ extension ViewController {
                 button.addTarget(self, action: #selector(self.setting), for: .touchUpInside)
                 return button
             }()
-            let informationCollectionView: UICollectionView = {
-                let layout = UICollectionViewFlowLayout()
-                let collectionView = UICollectionView(frame: CGRect(x: 32, y: 112, width: informationView.frame.size.width - 32, height: 96), collectionViewLayout: layout)
-                layout.scrollDirection = .horizontal
-                collectionView.register(UINib(nibName: "InfCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: ViewController.mainControllerID)
-                collectionView.delegate = self
-                collectionView.dataSource = self
-                collectionView.backgroundColor = .clear
-                return collectionView
-            }()
             let infView: InfView = {
                 let view = InfView(frame: CGRect(x: 32, y: 248, width: 311, height: 104))
-                view.firstLaunchValueLabel.text = "7 февраля 2018"
-                view.countryValueLabel.text = "США"
-                view.priceLaunchValueLabel.text = "$90млн"
+                view.firstLaunchValueLabel.text = dateForm
+                view.countryValueLabel.text = informationArray[index].country
+                view.priceLaunchValueLabel.text = "$\(informationArray[index].costPerLaunch / 1000000) млн "
                 return view
             }()
             let firsStageView: StageView = {
                 let view = StageView(frame: CGRect(x: 32, y: 432, width: 311, height: 104))
-                view.quantityEnginesValueLabel.text = "27"
-                view.quantityFuelValueLabel.text = "308.6"
-                view.combustionTimeValueLabel.text = "593"
+                view.quantityEnginesValueLabel.text = String(informationArray[index].firstStage.engines)
+                view.quantityFuelValueLabel.text = String(informationArray[index].firstStage.fuelAmountTons)
+                view.combustionTimeValueLabel.text = String(informationArray[index].firstStage.burnTimeSEC ?? 0)
                 return view
             }()
             let secondStageView: StageView = {
                 let view = StageView(frame: CGRect(x: 32, y: 616, width: 311, height: 104))
-                view.quantityEnginesValueLabel.text = "1"
-                view.quantityFuelValueLabel.text = "243.2"
-                view.combustionTimeValueLabel.text = "397"
+                view.quantityEnginesValueLabel.text = String(informationArray[index].secondStage.engines)
+                view.quantityFuelValueLabel.text = String(informationArray[index].secondStage.fuelAmountTons)
+                view.combustionTimeValueLabel.text = String(informationArray[index].secondStage.burnTimeSEC ?? 0)
                 return view
             }()
             let firstStageLabel: UILabel = {
@@ -133,10 +190,26 @@ extension ViewController {
                 return button
             }()
             
+            switch index {
+            case 0:
+                collectionView1.frame = CGRect(x: 32, y: 112, width: view.frame.size.width - 32, height: 96)
+                informationView.addSubview(collectionView1)
+            case 1:
+                collectionView2.frame = CGRect(x: 32, y: 112, width: view.frame.size.width - 32, height: 96)
+                informationView.addSubview(collectionView2)
+            case 2:
+                collectionView3.frame = CGRect(x: 32, y: 112, width: view.frame.size.width - 32, height: 96)
+                informationView.addSubview(collectionView3)
+            case 3:
+                collectionView4.frame = CGRect(x: 32, y: 112, width: view.frame.size.width - 32, height: 96)
+                informationView.addSubview(collectionView4)
+            default:
+                break
+            }
+            
             informationView.addSubview(rocketNameTextLabel)
             informationView.addSubview(settingsButtonImage)
             informationView.addSubview(settingButton)
-            informationView.addSubview(informationCollectionView)
             informationView.addSubview(infView)
             informationView.addSubview(firstStageLabel)
             informationView.addSubview(secondStageLabel)
@@ -160,8 +233,16 @@ extension ViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ViewController.mainControllerID, for: indexPath) as? InfCollectionViewCell else {return UICollectionViewCell()}
-        cell.configure(value: 23, nameValue: "Width")
         
+        if collectionView == collectionView1 {
+            Metod().addCell(indexPath: indexPath, index: 0, array: collViewData, cell: cell)
+        } else if collectionView == collectionView2 {
+            Metod().addCell(indexPath: indexPath, index: 1, array: collViewData, cell: cell)
+        } else if collectionView == collectionView3 {
+            Metod().addCell(indexPath: indexPath, index: 2, array: collViewData, cell: cell)
+        } else {
+            Metod().addCell(indexPath: indexPath, index: 3, array: collViewData, cell: cell)
+        }
         return cell
     }
 }
@@ -173,14 +254,22 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension ViewController {
+    func updateImage() {
+        let image = informationArray[pageControl.currentPage].flickrImages.randomElement()
+        let url = URL(string: image!)
+        mainImageView.kf.setImage(with: url)
+    }
+    
     @objc func changePage(sender: AnyObject) -> () {
         let x = CGFloat(pageControl.currentPage) * scrollView.frame.size.width
         scrollView.setContentOffset(CGPoint(x: x,y :0), animated: true)
+        updateImage()
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
         pageControl.currentPage = Int(pageNumber)
+        updateImage()
     }
 
     override func didReceiveMemoryWarning() {
@@ -205,7 +294,13 @@ extension ViewController {
         
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton;
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor(rgb: 0xF6F6F6)]
-        self.navigationController?.pushViewController(LaunchViewController.init(), animated: true)
+        
+        let rocketId = informationArray[pageControl.currentPage].id
+        let rocketName = informationArray[pageControl.currentPage].name
+        let send = LaunchViewController.init()
+        send.rocketId = rocketId
+        send.rocketName = rocketName
+        self.navigationController?.pushViewController(send, animated: true)
     }
 }
 
@@ -219,10 +314,10 @@ extension ViewController {
             pageControl.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             pageControl.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            mainImageView.heightAnchor.constraint(equalTo: view.heightAnchor, constant: 627),
-            mainImageView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 570),
-            mainImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -98),
-            mainImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -140)
+            mainImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0, constant: 500),
+            mainImageView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            mainImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mainImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             ])
     }
     
@@ -233,7 +328,11 @@ extension ViewController {
     @objc func valueSetting(_ notification: Notification) {
         guard let setting = notification.object as? SettingsValue else { return }
         settingsValues = setting
-        print(settingsValues)
+        Metod().getDataCollectionView(index: pageControl.currentPage, collectionViewArray: &collViewData, informationArray: informationArray, values: settingsValues)
+        collectionView1.reloadData()
+        collectionView2.reloadData()
+        collectionView3.reloadData()
+        collectionView4.reloadData()
     }
 }
 

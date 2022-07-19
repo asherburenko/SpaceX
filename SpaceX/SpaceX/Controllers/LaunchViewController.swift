@@ -6,10 +6,17 @@
 //
 
 import UIKit
+import Alamofire
+
 
 class LaunchViewController: UIViewController {
     
     let launchTableView = UITableView()
+    private var urlConstructor = URLComponents()
+    
+    var rocketId = ""
+    var rocketName = ""
+    var launchArray = [Launch]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +25,33 @@ class LaunchViewController: UIViewController {
         registerTableView()
         setup()
         addConstraint()
+        getDataLaunch()
+        
+    }
+}
+
+extension LaunchViewController {
+    func getDataLaunch() {
+        urlConstructor.scheme = "https"
+        urlConstructor.host = "api.spacexdata.com"
+        urlConstructor.path = "/v4/launches"
+        
+        guard let url = urlConstructor.url else { return }
+        
+        AF.request(url).responseData { response in
+            guard let data = response.value else { return }
+            do {
+                let launchData = try JSONDecoder().decode([Launch].self, from: data)
+                for index in 0..<launchData.count {
+                    if launchData[index].rocket == self.rocketId {
+                        self.launchArray.append(launchData[index])
+                        self.launchTableView.reloadData()
+                    }
+                }
+            } catch {
+                print(error)
+            }
+        }
     }
 }
 
@@ -32,7 +66,7 @@ extension LaunchViewController: UITableViewDelegate {
 extension LaunchViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return launchArray.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -42,7 +76,7 @@ extension LaunchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LaunchesTableViewCell.launchesCellId, for: indexPath) as? LaunchesTableViewCell else { return UITableViewCell()}
         
-        cell.configure(name: "Heavy holidays", date: "6 января, 2022")
+        cell.configure(name: launchArray[indexPath.section].nameLaunch, dateUnix: launchArray[indexPath.section].date, launchSuccess: launchArray[indexPath.section].success ?? true)
         return cell
     }
     
@@ -75,7 +109,7 @@ extension LaunchViewController {
         view.backgroundColor = UIColor(rgb: 0x121212)
         launchTableView.backgroundColor = .clear
         
-        navigationItem.title = "Name"
+        navigationItem.title = rocketName
         view.addSubview(launchTableView)
     }
 }

@@ -25,14 +25,24 @@ class LaunchesTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func configure(name: String, date: String) {
+    func configure(name: String, dateUnix: Int, launchSuccess: Bool) {
+        let date = NSDate(timeIntervalSince1970: Double(dateUnix))
+        let dataFormater = DateFormatter()
+        dataFormater.dateFormat = "d MMMM,yyyy"
+        let localDate = dataFormater.string(from: date as Date)
+        
         nameLabel.text = name
-        dateLabel.text = date
-        rocketImageView.image = UIImage(named: "rocketUp")
+        dateLabel.text = localDate
+        if launchSuccess {
+            rocketImageView.image = UIImage(named: "rocketUp")
+        } else if !launchSuccess {
+            rocketImageView.image = UIImage(named: "rocketDown")
+        }
     }
     
     func setupCell() {
         self.backgroundColor = UIColor(rgb: 0x121212)
+        self.contentView.backgroundColor = UIColor(rgb: 0x121212)
         titleView.backgroundColor = UIColor(rgb: 0x212121)
         titleView.layer.cornerRadius = 24
         

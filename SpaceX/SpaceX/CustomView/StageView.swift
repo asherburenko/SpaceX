@@ -67,7 +67,7 @@ class StageView: UIView {
     let combustionTimeValueLabel: UILabel = {
         let label = UILabel(frame: CGRect(x: 195, y: 80, width: 80, height: 24))
         label.textColor = UIColor(rgb: 0xF6F6F6)
-        label.font = UIFont(name: "HelveticaNeue", size: 16)
+        label.font = UIFont(name: "HelveticaNeueBold", size: 16)
         label.textAlignment = .right
         return label
     }()

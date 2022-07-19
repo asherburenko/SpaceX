@@ -18,7 +18,7 @@ class InfCollectionViewCell: UICollectionViewCell {
         setupCell()
     }
     
-    func configure(value: Int, nameValue: String) {
+    func configure(value: Double, nameValue: String) {
         valueLabel.text = String(value)
         nameValueLabel.text = nameValue
     }
