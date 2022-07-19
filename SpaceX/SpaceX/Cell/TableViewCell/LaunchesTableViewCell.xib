@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,20 +20,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="311" height="100"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5cz-oA-tJj">
-                                <rect key="frame" x="24" y="24" width="160" height="28"/>
+                                <rect key="frame" x="24" y="24" width="190" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="hGU-EQ-BNm"/>
-                                    <constraint firstAttribute="width" constant="160" id="wCJ-ac-2bW"/>
+                                    <constraint firstAttribute="width" constant="190" id="wCJ-ac-2bW"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GfO-Qu-tHL">
-                                <rect key="frame" x="24" y="52" width="121" height="24"/>
+                                <rect key="frame" x="24" y="52" width="150" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="IyA-Yl-7Uf"/>
-                                    <constraint firstAttribute="width" constant="121" id="JSl-kj-quQ"/>
+                                    <constraint firstAttribute="width" constant="150" id="JSl-kj-quQ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -48,7 +47,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="GfO-Qu-tHL" firstAttribute="leading" secondItem="7e7-hi-FxH" secondAttribute="leading" constant="24" id="F79-gf-ImT"/>
                             <constraint firstItem="5cz-oA-tJj" firstAttribute="leading" secondItem="7e7-hi-FxH" secondAttribute="leading" constant="24" id="X2R-pU-T3K"/>
@@ -59,6 +58,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="7e7-hi-FxH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="1kQ-oP-gZ0"/>
                     <constraint firstAttribute="trailing" secondItem="7e7-hi-FxH" secondAttribute="trailing" id="F3w-le-gIt"/>
@@ -76,9 +76,4 @@
             <point key="canvasLocation" x="139" y="94"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

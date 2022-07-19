@@ -29,6 +29,7 @@
 		48A32295286C1BF6006E5C2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48A32294286C1BF6006E5C2D /* Assets.xcassets */; };
 		48A32298286C1BF6006E5C2D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48A32296286C1BF6006E5C2D /* LaunchScreen.storyboard */; };
 		48A322A0286DA912006E5C2D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A3229F286DA912006E5C2D /* SettingsViewController.swift */; };
+		48AFC7222885531D00146863 /* LaunchJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48AFC7212885531D00146863 /* LaunchJSON.swift */; };
 		48E2E79B2881299400A27597 /* Metod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E2E79A2881299400A27597 /* Metod.swift */; };
 		48E2E79D28812EE500A27597 /* CollectionViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E2E79C28812EE500A27597 /* CollectionViewData.swift */; };
 /* End PBXBuildFile section */
@@ -56,6 +57,7 @@
 		48A32297286C1BF6006E5C2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		48A32299286C1BF6006E5C2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		48A3229F286DA912006E5C2D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		48AFC7212885531D00146863 /* LaunchJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchJSON.swift; sourceTree = "<group>"; };
 		48E2E79A2881299400A27597 /* Metod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metod.swift; sourceTree = "<group>"; };
 		48E2E79C28812EE500A27597 /* CollectionViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -133,8 +135,9 @@
 				48932A49287E95F200E4E40C /* Constant.swift */,
 				48932A4C287E983100E4E40C /* SettingsValue.swift */,
 				48E2E79C28812EE500A27597 /* CollectionViewData.swift */,
-				48932A572880154B00E4E40C /* SpaceRocketsJSON.swift */,
 				48932A5928802FC700E4E40C /* SpaceRocketsModel.swift */,
+				48932A572880154B00E4E40C /* SpaceRocketsJSON.swift */,
+				48AFC7212885531D00146863 /* LaunchJSON.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				48932A342874909E00E4E40C /* LaunchViewController.swift in Sources */,
 				48932A44287DB35100E4E40C /* SettingView.swift in Sources */,
 				48932A48287DBA9D00E4E40C /* SegmentControlView.swift in Sources */,
+				48AFC7222885531D00146863 /* LaunchJSON.swift in Sources */,
 				48932A4A287E95F200E4E40C /* Constant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

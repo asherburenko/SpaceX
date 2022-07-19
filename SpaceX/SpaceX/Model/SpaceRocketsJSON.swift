@@ -9,6 +9,7 @@ import UIKit
 
 struct SpaceRockets: Codable {
     let name: String
+    let id: String
     let firstFlight: String
     let country: String
     let costPerLaunch: Int
@@ -34,6 +35,7 @@ struct SpaceRockets: Codable {
     
     enum CodingKeys: String, CodingKey {
         case name
+        case id
         case firstFlight = "first_flight"
         case country
         case costPerLaunch = "cost_per_launch"

@@ -294,7 +294,13 @@ extension ViewController {
         
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton;
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor(rgb: 0xF6F6F6)]
-        self.navigationController?.pushViewController(LaunchViewController.init(), animated: true)
+        
+        let rocketId = informationArray[pageControl.currentPage].id
+        let rocketName = informationArray[pageControl.currentPage].name
+        let send = LaunchViewController.init()
+        send.rocketId = rocketId
+        send.rocketName = rocketName
+        self.navigationController?.pushViewController(send, animated: true)
     }
 }
 
